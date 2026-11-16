@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.example.jetpacktutorial.ui.theme.JetpackTutorialTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,9 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ){
-                    GreetingImage(stringResource(R.string.jetpack_title_text),
-                        stringResource(R.string.jetpack_body1_text), stringResource(R.string.jetpack_body2_text)
-                    )
+                    GreetingImage("All Tasks completed", "Nice work!")
                 }
             }
         }
@@ -49,25 +48,18 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun GreetingText(title: String, body1: String, body2: String, modifier: Modifier = Modifier){
+fun GreetingText( body1: String, body2: String, modifier: Modifier = Modifier){
     Column(modifier){
         Text(
-            text = title,
-            fontSize = 24.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                //.align(alignment = Alignment.CenterHorizontally)
-        )
-        Text(
             text = body1,
-            textAlign = TextAlign.Justify,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .padding(16.dp, 0.dp, 16.dp)
+                .padding(0.dp, 24.dp, 0.dp, 8.dp)
                 .align(alignment = Alignment.CenterHorizontally)
         )
         Text(
             text = body2,
-            textAlign = TextAlign.Justify,
+            fontSize = 16.sp,
             modifier = Modifier
                 .padding(16.dp)
                 .align(alignment = Alignment.CenterHorizontally)
@@ -77,16 +69,21 @@ fun GreetingText(title: String, body1: String, body2: String, modifier: Modifier
 }
 
 @Composable
-fun GreetingImage(title: String, body1: String, body2: String, modifier: Modifier = Modifier){
-    val image = painterResource(R.drawable.bg_compose_background)
-    Column(modifier) {
+fun GreetingImage(body1: String, body2: String, modifier: Modifier = Modifier){
+    val image = painterResource(R.drawable.ic_task_completed)
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             painter = image,
             contentDescription = null,
 
         )
         GreetingText(
-            title = title,
             body1 = body1,
             body2 = body2
         )
@@ -98,7 +95,7 @@ fun GreetingImage(title: String, body1: String, body2: String, modifier: Modifie
 fun GreetingPreview() {
     JetpackTutorialTheme {
         GreetingText(stringResource(R.string.jetpack_title_text),
-            stringResource(R.string.jetpack_body1_text), stringResource(R.string.jetpack_body2_text)
+            stringResource(R.string.jetpack_body1_text)
         )
     }
 }
