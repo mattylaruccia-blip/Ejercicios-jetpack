@@ -23,8 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ){
-                    GreetingImage("All Tasks completed", "Nice work!")
+                    ComposeQuadrant()
                 }
             }
         }
@@ -48,54 +50,72 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun GreetingText( body1: String, body2: String, modifier: Modifier = Modifier){
-    Column(modifier){
-        Text(
-            text = body1,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(0.dp, 24.dp, 0.dp, 8.dp)
-                .align(alignment = Alignment.CenterHorizontally)
-        )
-        Text(
-            text = body2,
-            fontSize = 16.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(alignment = Alignment.CenterHorizontally)
-        )
-    }
-
-}
-
-@Composable
-fun GreetingImage(body1: String, body2: String, modifier: Modifier = Modifier){
-    val image = painterResource(R.drawable.ic_task_completed)
+private fun Card(
+    title: String,
+    description: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(backgroundColor)
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = image,
-            contentDescription = null,
-
+        Text(
+            text = title,
+            modifier = Modifier.padding(bottom = 16.dp),
+            fontWeight = FontWeight.Bold
         )
-        GreetingText(
-            body1 = body1,
-            body2 = body2
+        Text(
+            text = description,
+            textAlign = TextAlign.Justify
         )
     }
 }
 
+
+@Composable
+fun ComposeQuadrant() {
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.weight(1f)) {
+            Card(
+                title = stringResource(R.string.card1_title),
+                description = stringResource(R.string.card1_description),
+                backgroundColor = Color(0xFFEADDFF),
+                modifier = Modifier.weight(1f)
+            )
+            Card(
+                title = stringResource(R.string.car2_title),
+                description = stringResource(R.string.card2_description),
+                backgroundColor = Color(0xFFD0BCFF),
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row(Modifier.weight(1f)) {
+            Card(
+                title = stringResource(R.string.card3_title),
+                description = stringResource(R.string.card3_description),
+                backgroundColor = Color(0xFFB69DF8),
+                modifier = Modifier.weight(1f)
+            )
+            Card(
+                title = stringResource(R.string.card4_title),
+                description = stringResource(R.string.card4_description),
+                backgroundColor = Color(0xFFF6EDFF),
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+
+}
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     JetpackTutorialTheme {
-        GreetingText(stringResource(R.string.jetpack_title_text),
-            stringResource(R.string.jetpack_body1_text)
-        )
+        ComposeQuadrant()
     }
 }
+
